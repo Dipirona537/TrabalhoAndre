@@ -1,20 +1,38 @@
 package com.trabalho.trabalhoandre.Entidades;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
+@Entity
 public class Pessoa implements Serializable {
 
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "nome", length = 50)
     private String nome;
+    @Column(name = "email", length = 50)
     private String email;
+    @Column(name = "senha", length = 50)
     private String senha;
+    @Column(name = "permissao")
     private int permissao;
+    @JoinColumn(name = "fk_tarefa")
+    @ManyToOne
+    private Tarefa tarefa;
 
-    public Long getId() {
+    public Tarefa getTarefa() {
+        return tarefa;
+    }
+
+    public void setTarefa(Tarefa tarefa) {
+        this.tarefa = tarefa;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

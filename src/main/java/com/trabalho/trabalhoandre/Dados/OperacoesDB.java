@@ -4,6 +4,8 @@
  */
 package com.trabalho.trabalhoandre.Dados;
 
+import com.trabalho.trabalhoandre.Entidades.Pessoa;
+import com.trabalho.trabalhoandre.Entidades.Tarefa;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import java.util.List;
@@ -14,9 +16,6 @@ import javax.persistence.*;
  * @author gabriel.guimaraes
  */
 public class OperacoesDB {
-    
-    //Gerencia toda a parte do banco de dados
-
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.unigran.br_Diario_jar_1.0-SNAPSHOTPU");
     EntityManager em = emf.createEntityManager();
     EntityTransaction etx = em.getTransaction();
@@ -33,7 +32,7 @@ public class OperacoesDB {
         }
         etx.begin();
         em.remove(old);
-        em.merge(o);
+        em.persist(o);
         etx.commit();
     }
 
@@ -46,13 +45,11 @@ public class OperacoesDB {
         etx.commit();
     }
 
-    public List listar() {
-        return null;//em.createNativeQuery("select * from diario d", Diario.class).getResultList();
+    public List listarPessoas() {
+        return em.createNativeQuery("select * from pessoa p", Pessoa.class).getResultList();
     }
-    
-    public Object get(int esc)
+    public List listarTarefas()
     {
-        List objetos = listar();
-        return objetos.get(esc);
+        return em.createNativeQuery("select * from tarefa t", Tarefa.class).getResultList();
     }
 }

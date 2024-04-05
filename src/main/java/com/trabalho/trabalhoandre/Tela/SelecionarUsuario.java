@@ -1,72 +1,112 @@
 package com.trabalho.trabalhoandre.Tela;
 
+import com.trabalho.trabalhoandre.Dados.OperacoesDB;
 import com.trabalho.trabalhoandre.Entidades.Pessoa;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class SelecionarUsuario extends JFrame {
     private JScrollPane scroll;
-    private JTable tabelaUsuarios;
-    private JButton selecionarButton;
-    private List<Pessoa> listaPessoas;
-    private JPanel painelPrincipal;
-    private Pessoa pessoaSelecionada;
+    private JTable usuarios;
+    private JButton selecionar;
+    private JButton atualizar;
+    private List<Pessoa> pessoas;
+    private JPanel principal;
+    private boolean concluir;
 
-    public SelecionarUsuario(List<Pessoa> listaPessoas) {
-        this.listaPessoas = listaPessoas;
+    public SelecionarUsuario() {
+        this.concluir = false;
         alocar();
         configurar();
         acoes();
+        if (pessoas.size()==0)
+        {
+            semRegistros();
+        }
+    }
+
+    public SelecionarUsuario(boolean concluir) {
+        this.concluir = true;
+        alocar();
+        configurar();
+        acoes();
+        if (pessoas.size()==0)
+        {
+            semRegistros();
+        }
     }
 
     private void configurar() {
         setTitle("Selecionar Usuário");
-        setSize(380, 510);
+        pack();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
     }
 
     private void alocar() {
-        painelPrincipal = new JPanel(new BorderLayout());
+        principal = new JPanel(new FlowLayout());
+        usuarios = new JTable();
+        scroll = new JScrollPane(usuarios);
+        atualizarLista();
+        selecionar = new JButton("Selecionar");
+        atualizar = new JButton("Atualizar");
+        add(scroll, BorderLayout.NORTH);
+        add(principal, BorderLayout.SOUTH);
+        principal.add(selecionar);
+        principal.add(atualizar);
+        add(principal);
+    }
 
+    public void semRegistros()
+    {
+        JLabel semreg = new JLabel("Sem registros, por favor cadastre antes de acessar o menu.");
+        remove(scroll);
+        add(semreg, BorderLayout.NORTH);
+        pack();
+    }
+
+    public void atualizarLista()
+    {
+        pessoas = new OperacoesDB().listarPessoas();
         String[] colunas = new String[]{"Nome"};
-        Object[][] data = new Object[listaPessoas.size()][colunas.length];
-        for (int i = 0; i < listaPessoas.size(); i++) {
-            data[i][0] = listaPessoas.get(i).getNome();
+        Object[][] data = new Object[pessoas.size()][colunas.length];
+        for (int i = 0; i < pessoas.size(); i++) {
+            data[i][0] = pessoas.get(i).getNome();
         }
-        tabelaUsuarios.setModel(new DefaultTableModel(data,colunas));
-        scroll = new JScrollPane(tabelaUsuarios);
-        selecionarButton = new JButton("Selecionar");
-        add(tabelaUsuarios, BorderLayout.NORTH);
-        painelPrincipal.add(selecionarButton, BorderLayout.SOUTH);
-        add(painelPrincipal);
+        usuarios.setModel(new DefaultTableModel(data,colunas));
+        pack();
     }
 
     public void acoes()
     {
-        selecionarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int id = tabelaUsuarios.getSelectedRow();
+        if (concluir)
+        {
+            selecionar.addActionListener(e -> {
+                int id = usuarios.getSelectedRow();
                 if (id < 0)
                 {
                     JOptionPane.showMessageDialog(null,"Nenhum usuário selecionado!");
                 }else{
-                    Pessoa p = retornaSelecionado(id);
                     dispose();
-                    new SelecionarTarefa(p).setVisible(true);
+                    new ConcluirTarefa(pessoas.get(id));
                 }
-            }
-        });
-    }
+            });
+        }else{
+            selecionar.addActionListener(e -> {
+                int id = usuarios.getSelectedRow();
+                if (id < 0)
+                {
+                    JOptionPane.showMessageDialog(null,"Nenhum usuário selecionado!");
+                }else{
+                    dispose();
+                    new SelecionarTarefa(pessoas.get(id)).setVisible(true);
+                }
+            });
+        }
 
-    private Pessoa retornaSelecionado(int i)
-    {
-        return listaPessoas.get(i);
+        atualizar.addActionListener(e -> atualizarLista());
     }
 }

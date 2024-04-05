@@ -39,23 +39,31 @@ public class Cadastro extends JFrame {
             String emailu = email.getText();
             String senhau = new String(senha.getPassword());
             String permissaou = (String) permissao.getSelectedItem();
-            OperacoesDB op = new OperacoesDB();
-            if (permissaou.equals("Usuário")) {
-                Pessoa p = new Pessoa();
-                p.setNome(nomeu);
-                p.setEmail(emailu);
-                p.setPermissao(1);
-                p.setSenha(senhau);
-                op.salvar(p);
-            } else {
-                Pessoa p = new Pessoa();
-                p.setNome(nomeu);
-                p.setEmail(emailu);
-                p.setPermissao(999);
-                p.setSenha(senhau);
-                op.salvar(p);
+            if (nomeu.equals("") || emailu.equals("") || senhau.equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os dados");
+            }else{
+                OperacoesDB op = new OperacoesDB();
+                if (permissaou.equals("Usuário")) {
+                    Pessoa p = new Pessoa();
+                    p.setNome(nomeu);
+                    p.setEmail(emailu);
+                    p.setPermissao(1);
+                    p.setSenha(senhau);
+                    op.salvar(p);
+                    JOptionPane.showMessageDialog(null,"Gravado com sucesso!");
+                    dispose();
+                } else {
+                    Pessoa p = new Pessoa();
+                    p.setNome(nomeu);
+                    p.setEmail(emailu);
+                    p.setPermissao(999);
+                    p.setSenha(senhau);
+                    op.salvar(p);
+                    JOptionPane.showMessageDialog(null,"Gravado com sucesso!");
+                    dispose();
+                }
             }
-
         });
 
         fechar.addActionListener(e -> dispose());

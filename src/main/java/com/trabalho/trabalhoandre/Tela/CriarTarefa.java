@@ -31,9 +31,9 @@ public class CriarTarefa extends JFrame {
             String descricao = CriarTarefa.this.descricao.getText();
             Date dataEntrega = dataentrega.getDate();
             int prioridade = (int) CriarTarefa.this.prioridade.getSelectedItem();
-            if (dataEntrega == null)
+            if (dataEntrega == null || titulo.equals("") || descricao.equals(""))
             {
-                JOptionPane.showMessageDialog(null, "Data inválida!");
+                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os dados");
             }else{
                 OperacoesDB op = new OperacoesDB();
                 Tarefa t = new Tarefa();
@@ -42,11 +42,8 @@ public class CriarTarefa extends JFrame {
                 t.setPrioridade(prioridade);
                 t.setEntrega(dataEntrega);
                 op.salvar(t);
+                dispose();
             }
-
-
-
-            dispose();
         });
 
         fechar.addActionListener(new ActionListener() {

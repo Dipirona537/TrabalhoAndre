@@ -1,13 +1,40 @@
 package com.trabalho.trabalhoandre.Entidades;
 
+import jdk.jfr.Timestamp;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 public class Tarefa implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "titulo", length = 50)
     private String titulo;
+    @Column(name = "descricao", length = 200)
     private String desc;
+    @Column(name = "entrega")
+    @Temporal(TemporalType.DATE)
     private Date entrega;
+    @Column(name = "prioridade")
     private int prioridade;
+    @Column(name = "concluida")
+    private boolean concluida;
+
+    public Tarefa()
+    {
+        this.concluida = false;
+    }
+
+    public boolean isConcluida() {
+        return concluida;
+    }
+
+    public void setConcluida(boolean concluida) {
+        this.concluida = concluida;
+    }
 
     public String getTitulo() {
         return titulo;

@@ -4,6 +4,8 @@
  */
 package com.trabalho.trabalhoandre.Tela;
 
+import com.trabalho.trabalhoandre.Entidades.Tarefa;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,8 +57,8 @@ public class Principal extends JFrame{
     {
         cadastro.addActionListener(e -> new Cadastro().setVisible(true));
         criarTarefa.addActionListener(e -> new CriarTarefa().setVisible(true));
-        atribuirTarefa.addActionListener(e -> new AtribuirTarefa().setVisible(true));
-        visualizarTarefa.addActionListener(e -> new VisualizarTarefa().setVisible(true));
-        concluirTarefa.addActionListener(e -> new ConcluirTarefa().setVisible(true));
+        atribuirTarefa.addActionListener(e -> new SelecionarUsuario().setVisible(true));
+        visualizarTarefa.addActionListener(e -> new SelecionarTarefa().setVisible(true));
+        concluirTarefa.addActionListener(e -> new SelecionarUsuario(true).setVisible(true));
     }
 }
