@@ -1,7 +1,5 @@
 package com.trabalho.trabalhoandre.Entidades;
 
-import jdk.jfr.Timestamp;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;

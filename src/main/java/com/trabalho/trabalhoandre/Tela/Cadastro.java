@@ -2,14 +2,8 @@ package com.trabalho.trabalhoandre.Tela;
 
 import com.trabalho.trabalhoandre.Dados.OperacoesDB;
 import com.trabalho.trabalhoandre.Entidades.Pessoa;
-import org.eclipse.persistence.exceptions.DatabaseException;
-import org.postgresql.util.PSQLException;
-
-import javax.persistence.PersistenceException;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Cadastro extends JFrame {
     private JTextField nome;
@@ -17,8 +11,6 @@ public class Cadastro extends JFrame {
     private JButton fechar;
     private JTextField email;
     private JComboBox permissao;
-    private JMenuItem p1;
-    private JMenuItem p2;
     private JPasswordField senha;
     private JPanel botoes;
     private JPanel campos;

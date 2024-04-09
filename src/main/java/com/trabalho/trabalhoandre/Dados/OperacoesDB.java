@@ -6,7 +6,6 @@ package com.trabalho.trabalhoandre.Dados;
 
 import com.trabalho.trabalhoandre.Entidades.Pessoa;
 import com.trabalho.trabalhoandre.Entidades.Tarefa;
-import org.eclipse.persistence.exceptions.DatabaseException;
 
 import java.util.List;
 import javax.persistence.*;

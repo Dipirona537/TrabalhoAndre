@@ -7,10 +7,7 @@ import com.trabalho.trabalhoandre.Entidades.Tarefa;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SelecionarTarefa extends JFrame {
@@ -84,42 +81,31 @@ public class SelecionarTarefa extends JFrame {
     {
         if (pessoa!=null)
         {
-            selecionar.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int id = tarefast.getSelectedRow();
-                    if (id < 0)
-                    {
-                        JOptionPane.showMessageDialog(null,"Nenhuma tarefa selecionada!");
-                    }else{
-                        dispose();
-                        new AtribuirTarefa(pessoa, retornaSelecionado(id)).Atribuir();
-                    }
+            selecionar.addActionListener(e -> {
+                int id = tarefast.getSelectedRow();
+                if (id < 0)
+                {
+                    JOptionPane.showMessageDialog(null,"Nenhuma tarefa selecionada!");
+                }else{
+                    dispose();
+                    new AtribuirTarefa(pessoa, retornaSelecionado(id)).Atribuir();
                 }
             });
         }else{
-            selecionar.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int id = tarefast.getSelectedRow();
-                    if (id < 0)
-                    {
-                        JOptionPane.showMessageDialog(null,"Nenhuma tarefa selecionada!");
-                    }else{
-                        dispose();
-                        new VisualizarTarefa(retornaTarefa(id)).setVisible(true);
+            selecionar.addActionListener(e -> {
+                int id = tarefast.getSelectedRow();
+                if (id < 0)
+                {
+                    JOptionPane.showMessageDialog(null,"Nenhuma tarefa selecionada!");
+                }else{
+                    dispose();
+                    new VisualizarTarefa(retornaTarefa(id)).setVisible(true);
 
-                    }
                 }
             });
         }
 
-        atualizar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                atualizarLista();
-            }
-        });
+        atualizar.addActionListener(e -> atualizarLista());
     }
 
     private Tarefa retornaSelecionado(int i)

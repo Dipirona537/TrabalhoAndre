@@ -4,13 +4,9 @@
  */
 package com.trabalho.trabalhoandre.Tela;
 
-import com.trabalho.trabalhoandre.Entidades.Tarefa;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /**
  *
@@ -22,6 +18,7 @@ public class Principal extends JFrame{
     private JButton atribuirTarefa;
     private JButton visualizarTarefa;
     private JButton concluirTarefa;
+    private JButton filtrar;
     
     public Principal()
     {
@@ -37,12 +34,14 @@ public class Principal extends JFrame{
         atribuirTarefa = new JButton("Atribuir Tarefa");
         visualizarTarefa = new JButton("Visualizar Tarefa");
         concluirTarefa = new JButton("Concluir Tarefa");
+        filtrar = new JButton("Filtros");
 
         add(cadastro);
         add(criarTarefa);
         add(atribuirTarefa);
         add(visualizarTarefa);
         add(concluirTarefa);
+        add(filtrar);
     }
     
     private void configurar()
@@ -60,5 +59,6 @@ public class Principal extends JFrame{
         atribuirTarefa.addActionListener(e -> new SelecionarUsuario().setVisible(true));
         visualizarTarefa.addActionListener(e -> new SelecionarTarefa().setVisible(true));
         concluirTarefa.addActionListener(e -> new SelecionarUsuario(true).setVisible(true));
+        filtrar.addActionListener(e -> new Filtrar().setVisible(true));
     }
 }
